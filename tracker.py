@@ -61,3 +61,42 @@ def print_results(students):
     names = ", ".join(student["name"] for student in practice)
     print(f"Extra practice (average below 40): {names or 'None'}")
     print(f"Students needing practice: {len(practice)}")
+
+
+def read_score(subject):
+    """Keep prompting until the score is an integer from 0 to 100."""
+    while True:
+        try:
+            score = int(input(f"{subject} score (0-100): "))
+        except ValueError:
+            print("Enter a whole number.")
+            continue
+
+        if 0 <= score <= 100:
+            return score
+        print("Score must be between 0 and 100.")
+
+
+def read_student():
+    """Collect a new record without converting its roll number to an integer."""
+    name = input("Name: ").strip()
+    roll_no = input("Roll number: ").strip()
+    return {
+        "name": name,
+        "roll_no": roll_no,
+        "aptitude": read_score("Aptitude"),
+        "verbal": read_score("Verbal"),
+        "coding": read_score("Coding"),
+    }
+
+
+def main():
+    print("Placement Readiness Tracker")
+    print("Enter one student's practice scores.")
+    students = STUDENTS.copy()
+    students.append(read_student())
+    print_results(students)
+
+
+if __name__ == "__main__":
+    main()
