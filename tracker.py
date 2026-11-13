@@ -8,3 +8,29 @@ STUDENTS = [
     {"name": "Meera Sethi", "roll_no": "004", "aptitude": 33, "verbal": 35, "coding": 37},
     {"name": "Rehan Ali", "roll_no": "005", "aptitude": 74, "verbal": 88, "coding": 78},
 ]
+
+
+def average(student):
+    """Return the unrounded mean of the three practice scores."""
+    return (student["aptitude"] + student["verbal"] + student["coding"]) / 3
+
+
+def grade(avg):
+    """Apply grade thresholds from highest to lowest."""
+    if avg >= 80:
+        return "A"
+    if avg >= 60:
+        return "B"
+    if avg >= 40:
+        return "C"
+    return "Needs practice"
+
+
+def top_scorer(students):
+    """Return the highest-scoring record; ties keep the first record."""
+    return max(students, key=average)
+
+
+def needs_practice(students, limit=40):
+    """Return the records with averages strictly below the limit."""
+    return [student for student in students if average(student) < limit]
